@@ -117,7 +117,7 @@ const navigateToTool = (tool) => {
 <style scoped>
 .home-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--theme-primary, #667eea) 0%, var(--theme-secondary, #764ba2) 100%);
+  background: linear-gradient(135deg, var(--theme-primary, #667eea) 0%, var(--theme-secondary, #1C1D1F) 100%);
   padding: 2rem;
   transition: background 0.3s ease;
 }

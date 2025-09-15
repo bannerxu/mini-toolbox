@@ -1,0 +1,45 @@
+# 编译后的二进制文件
+mini-toolbox-server
+main
+*.exe
+
+# Go模块缓存
+vendor/
+
+# 上传的文件（在Docker中会重新创建）
+uploads/
+compressed/
+
+# 测试文件
+*_test.go
+test/
+coverage.out
+
+# IDE和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 环境变量
+.env*
+
+# Git
+.git/
+.gitignore
+
+# 文档
+README.md
+*.md
+
+# Docker文件
+Dockerfile
+.dockerignore

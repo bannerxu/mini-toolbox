@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router'
 import Home from '../views/Home.vue'
 import ImageUpload from '../views/ImageUpload.vue'
+import ImageCompress from '../views/ImageCompress.vue'
 
 const routes = [
     {
@@ -17,6 +18,14 @@ const routes = [
         component: ImageUpload,
         meta: {
             title: 'Mini Toolbox - 图片上传'
+        }
+    },
+    {
+        path: '/image-compress',
+        name: 'ImageCompress',
+        component: ImageCompress,
+        meta: {
+            title: 'Mini Toolbox - 图片压缩'
         }
     }
 ]

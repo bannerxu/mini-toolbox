@@ -49,12 +49,18 @@
     </div>
 
     <!-- 成功上传后的显示 -->
-    <div v-if="uploadedImageUrl" class="result-container">
+    <div v-if="uploadedImageData" class="result-container">
       <h3>上传成功!</h3>
+      <div class="uploaded-info">
+        <p><strong>文件名:</strong> {{ uploadedImageData.fileName }}</p>
+        <p><strong>文件大小:</strong> {{ formatFileSize(uploadedImageData.fileSize) }}</p>
+        <p><strong>上传时间:</strong> {{ formatTime(uploadedImageData.uploadTime) }}</p>
+      </div>
       <img :src="uploadedImageUrl" alt="已上传图片" class="uploaded-image">
-      <p class="image-link">
-        <a :href="uploadedImageUrl" target="_blank">查看图片</a>
-      </p>
+      <div class="action-buttons">
+        <a :href="uploadedImageUrl" target="_blank" class="view-btn">查看图片</a>
+        <button @click="goToCompress" class="compress-btn">去压缩</button>
+      </div>
     </div>
   </div>
 </template>
@@ -62,16 +68,19 @@
 <script>
 import {ref} from 'vue'
 import axios from 'axios'
+import {useRouter} from 'vue-router'
 
 export default {
   name: 'ImageUploader',
   setup() {
+    const router = useRouter()
     const fileInput = ref(null)
     const selectedFile = ref(null)
     const previewUrl = ref('')
     const isUploading = ref(false)
     const uploadStatus = ref('')
     const uploadedImageUrl = ref('')
+    const uploadedImageData = ref(null)
     const statusClass = ref('')
     const isDragOver = ref(false)
 
@@ -175,11 +184,12 @@ export default {
           }
         })
 
-        // 假设后端返回 { success: true, message: "上传成功", data: { filePath: "..." } }
+        // 假设后端返回 { success: true, message: "上传成功", data: { filePath: "...", fileName: "...", fileSize: ... } }
         if (response.data.success) {
           uploadStatus.value = '上传成功!'
           statusClass.value = 'success'
-          uploadedImageUrl.value = `/api/static/${response.data.data.filePath}`
+          uploadedImageData.value = response.data.data
+          uploadedImageUrl.value = `/api/uploads/${response.data.data.filePath}`
         } else {
           throw new Error(response.data.message || '上传失败')
         }
@@ -201,6 +211,21 @@ export default {
       return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
     }
 
+    // 格式化时间显示
+    const formatTime = (timestamp) => {
+      return new Date(timestamp * 1000).toLocaleString()
+    }
+
+    // 跳转到压缩页面
+    const goToCompress = () => {
+      router.push({
+        name: 'ImageCompress',
+        query: {
+          filename: uploadedImageData.value.filePath
+        }
+      })
+    }
+
     return {
       fileInput,
       selectedFile,
@@ -208,6 +233,7 @@ export default {
       isUploading,
       uploadStatus,
       uploadedImageUrl,
+      uploadedImageData,
       statusClass,
       isDragOver,
       triggerFileInput,
@@ -217,7 +243,9 @@ export default {
       handleDragEnter,
       handleDragLeave,
       uploadFile,
-      formatFileSize
+      formatFileSize,
+      formatTime,
+      goToCompress
     }
   }
 }
@@ -319,14 +347,60 @@ export default {
   text-align: center;
 }
 
+.uploaded-info {
+  margin: 15px 0;
+  text-align: left;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 4px solid #409eff;
+}
+
+.uploaded-info p {
+  margin: 5px 0;
+  color: #666;
+}
+
 .uploaded-image {
   max-width: 100%;
   max-height: 400px;
   border-radius: 4px;
   margin: 15px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.image-link {
-  margin-top: 10px;
+.action-buttons {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.view-btn, .compress-btn {
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.view-btn {
+  background-color: #f0f0f0;
+  color: #666;
+}
+
+.view-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.compress-btn {
+  background-color: #52c41a;
+  color: white;
+}
+
+.compress-btn:hover {
+  background-color: #73d13d;
 }
 </style>

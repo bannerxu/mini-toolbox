@@ -1,0 +1,44 @@
+# 依赖
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 构建输出（避免冲突）
+dist/
+build/
+
+# 开发文件
+src/**/*.spec.js
+src/**/*.test.js
+tests/
+coverage/
+
+# IDE和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# 环境变量
+.env*
+
+# Git
+.git/
+.gitignore
+
+# 文档
+README.md
+*.md
+
+# Docker文件
+Dockerfile
+.dockerignore
+
+# 开发服务器
+.vite/
+vite.config.js.timestamp-*

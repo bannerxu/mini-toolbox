@@ -1,0 +1,53 @@
+# Git相关
+.git
+.gitignore
+.gitattributes
+
+# 文档
+README.md
+*.md
+docs/
+
+# 开发工具
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+tmp/
+temp/
+.tmp/
+
+# 系统文件
+.DS_Store
+Thumbs.db
+
+# Docker相关
+Dockerfile
+.dockerignore
+docker-compose*.yml
+
+# 部署脚本
+deploy.sh
+start.sh
+quick-start.sh
+start.bat
+
+# 环境变量文件
+.env*
+
+# SSL证书
+ssl/
+*.pem
+*.key
+*.crt
+
+# 备份文件
+*.bak
+*.backup

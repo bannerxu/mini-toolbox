@@ -46,10 +46,19 @@ const tools = ref([
     id: 'image-upload',
     name: '图片上传',
     description: '支持拖拽上传，多种格式支持',
-    icon: '🖼️',
+    icon: '📁',
     route: '/image-upload',
     category: '文件处理',
     color: '#409eff'
+  },
+  {
+    id: 'image-compress',
+    name: '图片压缩',
+    description: '高质量图片压缩，支持多种参数调节',
+    icon: '🗜️',
+    route: '/image-compress',
+    category: '图片处理',
+    color: '#67c23a'
   },
   {
     id: 'text-formatter',
@@ -58,7 +67,7 @@ const tools = ref([
     icon: '📝',
     route: '/text-formatter',
     category: '文本处理',
-    color: '#67c23a',
+    color: '#e6a23c',
     disabled: true
   },
   {
@@ -68,7 +77,7 @@ const tools = ref([
     icon: '📱',
     route: '/qr-generator',
     category: '实用工具',
-    color: '#e6a23c',
+    color: '#f56c6c',
     disabled: true
   },
   {
@@ -78,7 +87,7 @@ const tools = ref([
     icon: '🎨',
     route: '/color-picker',
     category: '设计工具',
-    color: '#f56c6c',
+    color: '#9c27b0',
     disabled: true
   },
   {
